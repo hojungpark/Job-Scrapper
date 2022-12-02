@@ -13,11 +13,23 @@ func main(){
 
 func getPages() int{
 	resp, err := http.Get(baseURL)
-	if err != nil {
-		log.Fatalln(err)
-	}
+
+	checkErr(err)
+	checkStatus(resp)
 	if resp.StatusCode != 200{
 		log.Fatalln("Request failed with status:", resp.Status)
 	}
 	return 0
+}
+
+func checkErr(err error){
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func checkStatus(resp *http.Response){
+	if resp.StatusCode != 200{
+		log.Fatalln("Request failed with status:", resp.Status)
+	}
 }
